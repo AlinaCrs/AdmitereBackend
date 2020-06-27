@@ -7,16 +7,15 @@ import javax.persistence.Column;
 
 @Getter
 @Setter
-public class Faculty {
+public class Grade {
 
   @Column(name = "")
-  private long facultyId;
+  private long gradeId;
 
   @Column(name = "")
-  private String facultyName;
+  private double grade;
 
   @Column(name = "")
-  private String department;
-
+  private long examId;
 
 }
