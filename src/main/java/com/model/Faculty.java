@@ -1,22 +1,31 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "faculty")
 public class Faculty {
 
-  @Column(name = "")
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "faculty_id")
   private long facultyId;
 
-  @Column(name = "")
+  @Column(name = "faculty_name")
   private String facultyName;
 
-  @Column(name = "")
+  @Column(name = "department")
   private String department;
 
+  @JsonManagedReference(value = "faculty")
+  @OneToMany(mappedBy = "faculty")
+  private List<Exam> exams;
 
 }

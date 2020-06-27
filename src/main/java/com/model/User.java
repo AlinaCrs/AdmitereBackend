@@ -1,19 +1,21 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
-  @Column(name = "")
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "user_id")
   private long userId;
 
   @Column(name = "first_name")
@@ -37,10 +39,13 @@ public class User {
   @Column(name = "password")
   private String password;
 
-  @Column(name = "")
-  private long roleId;
+  @JsonManagedReference(value = "role")
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-  @Column(name = "")
-  private long gradeId;
+  @JsonManagedReference(value = "user")
+  @OneToMany(mappedBy = "user")
+  private List<Doc> documents;
 
 }
